@@ -9,6 +9,8 @@ straight = ['AS', 'JS', 'KS', 'QS', 'TS']
 straightF = ['3S', '6S', '5S', '7S', '4S']
 four_of_a_kind = ['3S', '3C', '3D', '3H', '5S']
 full_house = ['3S', '3C', '3D', '2H', '2S']
+high_card1 = ['AS', 'JC', '7H', '2C', '2D']
+high_card2 = ['AS', 'JC', '7H', '2C', '2D']
 
 deck = []
 for suit in suits:
@@ -48,9 +50,9 @@ def check_is_straight(player):
        
 # print(check_is_straight(straight))
 
-def check_is_four_of_a_kind(player):
+def check_4_3_2_of_a_kind(player,kind):
     player_frequency = count_frequency(player)
-    if 4 in player_frequency.values():
+    if kind in player_frequency.values():
         return True
     return False
 
@@ -59,6 +61,12 @@ def check_is_fullhouse(player):
     if (3 in player_frequency.values()) and (2 in player_frequency.values()) :
         return True
     return False
+
+def check_high_card(player):
+    #get the rank of each card in hand and comparing and retrieving the values in values dict. Then suming it up.
+    newrank = [values[card[0]] for card in player]
+    return(sum(newrank))
+
 
 def compare_hands(hand1,hand2,hand_value):
     if hand1 and not hand2:
@@ -106,8 +114,8 @@ def is_straight_flush(hand_a,hand_b):
 
 def is_four_of_a_kind(hand_a,hand_b):
     hand_value = "Four of a kind"
-    hand1 = check_is_four_of_a_kind(hand_a)
-    hand2 = check_is_four_of_a_kind(hand_b)
+    hand1 = check_4_3_2_of_a_kind(hand_a,4)
+    hand2 = check_4_3_2_of_a_kind(hand_b,4)
     four_of_a_kind = compare_hands(hand1,hand2,hand_value)
     if four_of_a_kind:
         return print(four_of_a_kind)
@@ -142,8 +150,38 @@ def is_straight(hand_a,hand_b):
         return print(is_a_straight)
     return three_of_a_kind(hand_a,hand_b)
     
+def three_of_a_kind(hand_a,hand_b):
+    hand_value = "Three of a kind"
+    hand1 = check_4_3_2_of_a_kind(hand_a,3)
+    hand2 = check_4_3_2_of_a_kind(hand_b,3)
+    three_of_a_kind = compare_hands(hand1,hand2,hand_value)
+    if three_of_a_kind:
+        return print(three_of_a_kind)
+    return is_two_pair(hand_a,hand_b)
 
-isRoyal_flush()
+def is_two_pair(hand_a,hand_b):
+    hand_value = "Two Pair"
+    hand1 = check_4_3_2_of_a_kind(hand_a,2)
+    hand2 = check_4_3_2_of_a_kind(hand_b,2)
+    two_pair = compare_hands(hand1,hand2,hand_value)
+    if two_pair:
+        return print(two_pair)
+    return is_high_card(hand_a,hand_b)
+
+def is_high_card(hand_a,hand_b):
+    hand1 = check_high_card(hand_a)
+    hand2 = check_high_card(hand_b)
+    print(hand1,hand2)
+    if hand1 > hand2:
+        return print("hand1 = 1, High Card")
+    elif hand1 < hand2:
+        return print("hand2 = 1, High Card")
+    else:
+        return print(f"hand1 and hand 2 = {3},High Card")
+
+
+is_high_card(high_card1,high_card2)
+# isRoyal_flush()
 
 
 
