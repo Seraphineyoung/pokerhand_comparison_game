@@ -179,8 +179,7 @@ def is_high_card(hand_a,hand_b):
     else:
         return print(f"hand1 and hand 2 = {3},High Card")
 
-
-is_high_card(high_card1,high_card2)
+# is_high_card(high_card1,high_card2)
 # isRoyal_flush()
 
 
