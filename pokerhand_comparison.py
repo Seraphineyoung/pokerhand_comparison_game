@@ -1,4 +1,5 @@
 import random
+from sys import exit
 
 values = {"2":2, "3":3, "4":4, "5":5, "6":6, "7":7, "8":8, "9":9, "T":10, "J":11, "Q":12, "K":13, "A":14}
 suits = ["S", "C", "H", "D"]
@@ -23,8 +24,13 @@ for suit in suits:
 def hand_to_array(string_hand):
     hand = string_hand.upper().split(" ")
     #checking if the player hand is found amoung the deck and the length is equal to 5
-    assert set(hand).issubset(deck) and len(hand) == 5
-    return sort_hand(hand)
+    try:
+        assert set(hand).issubset(deck) and len(hand) == 5
+        return sort_hand(hand)
+    except AssertionError:
+        print("Error: Check that hand is in deck and length of hand is equal to 5")
+        exit(0)
+    
 
 def sort_hand(hand):
     #sort hand with the first element of each card, based on values
@@ -89,9 +95,9 @@ def check_royal_flush(player):
 
 def isRoyal_flush():
     hand_value = "Royal flush"
-    player_1 = input("Player one play hand: ")
+    player_1 = input("Player one play: ")
     sort_hand_a = hand_to_array(player_1)
-    player_2 = input("Player two play hand: ")
+    player_2 = input("Player two play: ")
     sort_hand_b = hand_to_array(player_2)
     hand1 = check_royal_flush(sort_hand_a)
     hand2 = check_royal_flush(sort_hand_b)
@@ -170,9 +176,9 @@ def is_high_card(hand_a,hand_b):
     if hand1 > hand2:
         return print("Player One Wins hohoho, with a High Card")
     elif hand1 < hand2:
-        return print("Player One Wins hohoho, High Card")
+        return print("Player Two Wins hohoho,with a High Card")
     else:
-        return print(f"It is a draw, that's not exiciting with a High Card")
+        return print(f"It is a draw, that's not exciting with a High Card")
 
 
 isRoyal_flush()
