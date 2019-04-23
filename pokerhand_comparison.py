@@ -4,22 +4,13 @@ from sys import exit
 values = {"2":2, "3":3, "4":4, "5":5, "6":6, "7":7, "8":8, "9":9, "T":10, "J":11, "Q":12, "K":13, "A":14}
 suits = ["S", "C", "H", "D"]
 ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A"]
-royalFlush = ['KS', 'TS', 'JS', 'QS', 'AS']
-flush = ['AC', 'JD', '2C', 'QC', 'TC'] 
-straight = ['AS', 'JS', 'KS', 'QS', 'TS']
-straightF = ['3S', '6S', '5S', '7S', '4S']
-four_of_a_kind = ['3S', '3C', '3D', '3H', '5S']
-full_house = ['3S', '3C', '3D', '2H', '2S']
-high_card1 = ['AS', 'JC', '7H', '2C', '2D']
-high_card2 = ['AS', 'JC', '7H', '2C', '2D']
-three_kind = ['AS', 'AC', 'AH', '3C', '7D']
-two_kind = ['JS', 'JC', '7H', '3C', '2D']
+
 
 deck = []
 for suit in suits:
     for rank in ranks:
         deck.append((f"{rank}{suit}"))
-# print(deck)
+
 
 def hand_to_array(string_hand):
     hand = string_hand.upper().split(" ")
@@ -47,14 +38,12 @@ def count_frequency(hand):
 def check_is_flush(player):
     suits = [suit[1] for suit in player]
     return len(set(suits)) == 1
-# print(check_is_flush(flush),"flush")
 
 def check_is_straight(player):
     ranks = [rank[0] for rank in player]
     string_rank = ''.join(ranks)
     is_consecutive = string_rank in '23456789TJQKA'
     return is_consecutive     
-# print(check_is_straight(straight))
 
 def check_4_3_2_of_a_kind(player,kind):
     player_frequency = count_frequency(player)
@@ -75,21 +64,19 @@ def check_high_card(player):
 
 def compare_hands(hand1,hand2,hand_value):
     if hand1 and not hand2:
-        return (f"Player One Wins hohoho, with a {hand_value}") 
+        return (f"Player One Wins!!!!!! with a {hand_value} {1} and Player Two lost {2}") 
     if hand2 and not hand1:
-       return(f"Player Two Wins hohoho, with a {hand_value}") 
+       return(f"Player Two Wins!!!!!! with a {hand_value} {1} and Player One lost {2}") 
     if hand1 and hand2:
-        return (f"It is a draw, that's not exiciting with{hand_value}")
+        return (f"It is a draw, that's not exiciting with {hand_value}")
     if not hand1 and not hand2:
         return False
 
-# check if straightflush and ten2ace
 def check_royal_flush(player):
-    suits = [suit[1] for suit in player]
     ranks = [rank[0] for rank in player]
     royal_flush_ranks = ['A', 'Q', 'T', 'J', 'K']
     ten_to_ace = (set(ranks) == set(royal_flush_ranks))
-    if ten_to_ace and len(set(suits)) == 1:
+    if ten_to_ace and check_is_flush:
         return True
     return False
 
@@ -174,12 +161,11 @@ def is_high_card(hand_a,hand_b):
     hand2 = check_high_card(hand_b)
     print(hand1,hand2)
     if hand1 > hand2:
-        return print("Player One Wins hohoho, with a High Card")
+        return print("Player One Wins!!!!!!  with a High Card {1} and Player Two lost {2}")
     elif hand1 < hand2:
-        return print("Player Two Wins hohoho,with a High Card")
+        return print("Player Two Wins!!!!!! with a High Card {1} and Player One lost {2}")
     else:
         return print(f"It is a draw, that's not exciting with a High Card")
-
 
 isRoyal_flush()
 
