@@ -11,6 +11,8 @@ four_of_a_kind = ['3S', '3C', '3D', '3H', '5S']
 full_house = ['3S', '3C', '3D', '2H', '2S']
 high_card1 = ['AS', 'JC', '7H', '2C', '2D']
 high_card2 = ['AS', 'JC', '7H', '2C', '2D']
+three_kind = ['AS', 'AC', 'AH', '3C', '7D']
+two_kind = ['JS', 'JC', '7H', '3C', '2D']
 
 deck = []
 for suit in suits:
@@ -39,15 +41,13 @@ def count_frequency(hand):
 def check_is_flush(player):
     suits = [suit[1] for suit in player]
     return len(set(suits)) == 1
-
 # print(check_is_flush(flush),"flush")
 
 def check_is_straight(player):
     ranks = [rank[0] for rank in player]
     string_rank = ''.join(ranks)
     is_consecutive = string_rank in '23456789TJQKA'
-    return is_consecutive
-       
+    return is_consecutive     
 # print(check_is_straight(straight))
 
 def check_4_3_2_of_a_kind(player,kind):
@@ -67,14 +67,13 @@ def check_high_card(player):
     newrank = [values[card[0]] for card in player]
     return(sum(newrank))
 
-
 def compare_hands(hand1,hand2,hand_value):
     if hand1 and not hand2:
-        return (f"hand1 = 1,{hand_value}") 
+        return (f"Player One Wins hohoho, with a {hand_value}") 
     if hand2 and not hand1:
-       return(f"hand2 = 1,{hand_value}") 
+       return(f"Player Two Wins hohoho, with a {hand_value}") 
     if hand1 and hand2:
-        return (f"hand1 and hand 2 = {3},{hand_value}")
+        return (f"It is a draw, that's not exiciting with{hand_value}")
     if not hand1 and not hand2:
         return False
 
@@ -90,9 +89,9 @@ def check_royal_flush(player):
 
 def isRoyal_flush():
     hand_value = "Royal flush"
-    player_1 = input("Enter hand: ")
+    player_1 = input("Player one play hand: ")
     sort_hand_a = hand_to_array(player_1)
-    player_2 = input("Enter hand: ")
+    player_2 = input("Player two play hand: ")
     sort_hand_b = hand_to_array(player_2)
     hand1 = check_royal_flush(sort_hand_a)
     hand2 = check_royal_flush(sort_hand_b)
@@ -100,7 +99,6 @@ def isRoyal_flush():
     if is_royal_flush:
         return print(is_royal_flush)
     return is_straight_flush(sort_hand_a,sort_hand_b)
-
 
 def is_straight_flush(hand_a,hand_b):
     hand_value = "straight flush"
@@ -111,7 +109,6 @@ def is_straight_flush(hand_a,hand_b):
         return print(straight_flush)
     return is_four_of_a_kind(hand_a,hand_b)
 
-
 def is_four_of_a_kind(hand_a,hand_b):
     hand_value = "Four of a kind"
     hand1 = check_4_3_2_of_a_kind(hand_a,4)
@@ -120,7 +117,6 @@ def is_four_of_a_kind(hand_a,hand_b):
     if four_of_a_kind:
         return print(four_of_a_kind)
     return is_full_house(hand_a,hand_b)
-
 
 def is_full_house(hand_a,hand_b):
     hand_value = "Full House"
@@ -139,7 +135,6 @@ def is_flush(hand_a,hand_b):
     if is_a_flush:
         return print(is_a_flush)
     return is_straight(hand_a,hand_b)
-
 
 def is_straight(hand_a,hand_b):
     hand_value = "Straight"
@@ -173,14 +168,14 @@ def is_high_card(hand_a,hand_b):
     hand2 = check_high_card(hand_b)
     print(hand1,hand2)
     if hand1 > hand2:
-        return print("hand1 = 1, High Card")
+        return print("Player One Wins hohoho, with a High Card")
     elif hand1 < hand2:
-        return print("hand2 = 1, High Card")
+        return print("Player One Wins hohoho, High Card")
     else:
-        return print(f"hand1 and hand 2 = {3},High Card")
+        return print(f"It is a draw, that's not exiciting with a High Card")
 
-# is_high_card(high_card1,high_card2)
-# isRoyal_flush()
+
+isRoyal_flush()
 
 
 
